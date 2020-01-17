@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -69,5 +68,19 @@ public class AccountRepositoryTest {
         Account account3 = accountRepository.findById(3l).get();
         assertThat(account3.getEmail()).isEqualTo("stevek@gmail.com");
         assertThat(account3.getCreateAt()).isNotNull();
+    }
+
+    @Test
+    public void accountSearch(){
+        List<Account> accounts = accountRepository.findAll();
+        assertThat(accounts).hasSize(3);
+    }
+
+    @Test
+    public void deleteAll(){
+        accountRepository.deleteAll();
+
+        List<Account> accountList = accountRepository.findAll();
+        assertThat(accountList).isEmpty();
     }
 }
