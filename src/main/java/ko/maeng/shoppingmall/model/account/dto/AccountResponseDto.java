@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AccountDto {
+public class AccountResponseDto {
 
     private String email;
 
@@ -24,7 +24,7 @@ public class AccountDto {
     private String zipCode;
 
     @Builder
-    public AccountDto(String username, String password, String address1, String address2, String zipCode){
+    public AccountResponseDto(String username, String password, String address1, String address2, String zipCode){
         this.username = username;
         this.password = password;
         this.address1 = address1;

@@ -1,12 +1,9 @@
 package ko.maeng.shoppingmall.web.controller.account;
 
-import ko.maeng.shoppingmall.model.account.dto.AccountDto;
+import ko.maeng.shoppingmall.model.account.dto.AccountResponseDto;
+import ko.maeng.shoppingmall.model.account.dto.AccountUpdateDto;
 import ko.maeng.shoppingmall.model.account.service.AccountService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/accounts")
@@ -19,7 +16,12 @@ public class AccountController {
     }
 
     @PostMapping("")
-    public Long create(AccountDto dto) {
+    public Long create(@RequestBody AccountResponseDto dto) {
         return accountService.save(dto);
+    }
+
+    @PutMapping("/{id}")
+    public Long update(@PathVariable Long id, @RequestBody AccountUpdateDto dto){
+        return accountService.update(id, dto);
     }
 }

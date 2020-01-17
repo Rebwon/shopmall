@@ -1,11 +1,11 @@
 package ko.maeng.shoppingmall.model.account.service;
 
-import ko.maeng.shoppingmall.model.account.dto.AccountDto;
+import ko.maeng.shoppingmall.model.account.domain.Account;
+import ko.maeng.shoppingmall.model.account.dto.AccountResponseDto;
+import ko.maeng.shoppingmall.model.account.dto.AccountUpdateDto;
 import ko.maeng.shoppingmall.model.account.repository.AccountRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountService {
@@ -17,7 +17,17 @@ public class AccountService {
     }
 
     @Transactional
-    public Long save(AccountDto dto) {
+    public Long save(AccountResponseDto dto) {
         return repository.save(dto.toEntity()).getId();
+    }
+
+    @Transactional
+    public Long update(Long id, AccountUpdateDto dto) {
+        Account account = repository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+
+        account.updateMyAccount(dto);
+
+        return id;
     }
 }
