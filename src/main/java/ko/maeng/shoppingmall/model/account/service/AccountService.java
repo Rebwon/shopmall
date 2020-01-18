@@ -2,6 +2,7 @@ package ko.maeng.shoppingmall.model.account.service;
 
 import ko.maeng.shoppingmall.model.account.domain.Account;
 import ko.maeng.shoppingmall.model.account.dto.AccountResponseDto;
+import ko.maeng.shoppingmall.model.account.dto.AccountSaveDto;
 import ko.maeng.shoppingmall.model.account.dto.AccountUpdateDto;
 import ko.maeng.shoppingmall.model.account.exception.AccountNotFoundException;
 import ko.maeng.shoppingmall.model.account.repository.AccountRepository;
@@ -18,7 +19,7 @@ public class AccountService {
     }
 
     @Transactional
-    public Long save(AccountResponseDto dto) {
+    public Long save(AccountSaveDto dto) {
         return repository.save(dto.toEntity()).getId();
     }
 
@@ -30,5 +31,12 @@ public class AccountService {
         account.updateMyAccount(dto);
 
         return id;
+    }
+
+    @Transactional
+    public AccountResponseDto findById(Long id) {
+        Account entity = repository.findById(id).orElseThrow(() ->
+                new AccountNotFoundException("해당 사용자가 없습니다. id=" + id));
+        return new AccountResponseDto(entity);
     }
 }

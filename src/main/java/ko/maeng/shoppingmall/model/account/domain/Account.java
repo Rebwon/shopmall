@@ -1,6 +1,5 @@
 package ko.maeng.shoppingmall.model.account.domain;
 
-import ko.maeng.shoppingmall.model.account.dto.AccountResponseDto;
 import ko.maeng.shoppingmall.model.account.dto.AccountUpdateDto;
 import ko.maeng.shoppingmall.model.common.BaseEntity;
 import lombok.AccessLevel;
